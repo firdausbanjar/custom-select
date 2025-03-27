@@ -67,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			const totalPadding = paddingLeft + paddingRight;
 
 			optionContainer.setAttribute('tabindex', '-1')
+			textSelect.style.width = customSelectStyle.width
 			dropdown.style.left = -(parseFloat(customSelectStyle.paddingLeft)) + "px";
 			dropdown.style.top = selectElementStyle.paddingTop;
 			dropdown.style.borderRadius = selectElementStyle.borderRadius;
