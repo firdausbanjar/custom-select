@@ -1,0 +1,116 @@
+.custom-select-container,
+.custom-select-text-container,
+.custom-select-text,
+.custom-select-icon,
+.custom-select-dropdown-container,
+.custom-select-dropdown,
+.custom-select-search,
+.custom-select-option-container,
+.custom-select-option-item,
+.custom-select {
+	box-sizing: border-box !important;
+}
+
+* {
+	box-sizing: border-box !important;
+}
+
+.custom-select {
+	position: absolute !important;
+	height: 0 !important;
+	width: 0 !important;
+	opacity: 0 !important;
+	pointer-events: none !important;
+}
+
+.custom-select-container {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	max-width: 100% !important;
+	position: relative;
+	cursor: pointer;
+}
+
+.custom-select-text-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	max-width: 100% !important;
+	position: relative;
+}
+
+.custom-select-text {
+	display: inline-block;
+	text-wrap: nowrap;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
+}
+
+.custom-select-icon {
+	display: inline-block;
+	width: fit-content !important;
+	position: absolute;
+	top: 0;
+}
+
+.custom-select-dropdown-container {
+	display: none;
+	position: relative;
+	max-width: 100% !important;
+}
+
+.custom-select-dropdown {
+	display: flex;
+	flex-direction: column;
+	padding: 4px;
+	position: absolute;
+	z-index: 100;
+	background: white;
+	overflow: hidden;
+}
+
+.custom-select-active {
+	display: block;
+}
+
+.custom-select-search {
+	display: block;
+	margin-bottom: 4px;
+	width: 100%;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 5px;
+	outline: none;
+}
+
+.custom-select-option-container {
+	display: flex;
+	flex-direction: column;
+	max-height: 200px;
+	overflow: auto;
+}
+
+.custom-select-option-item {
+	display: block;
+	cursor: pointer;
+	margin-bottom: 4px;
+	border-radius: 5px;
+	padding: 0.375rem 0.75rem;
+}
+
+.custom-select-option-item.disabled {
+	color: gray;
+	pointer-events: none;
+	cursor: not-allowed;
+}
+
+.custom-select-option-item:hover {
+	background-color: #007bff;
+	color: white;
+}
+
+.custom-select-option-item.active {
+	background-color: #007bff;
+	color: white;
+}

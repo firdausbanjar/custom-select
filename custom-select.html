@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<link rel="stylesheet" href="custom-select.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller="select-custom">
+	<form id="myForm" class="p-5" ng-submit="submit()">
+		<div>
+			<div class="row mb-4">
+				<input type="text" id="name" name="name" class="w-25 form-control col-4" ng-model="form.name" required />
+				<div class="col-4">
+					<select id="option" style="border-radius: 5px; padding: 8px 20px;" class="custom-select form-control"
+						name="hero" ng-model="form.hero" required>
+						<option value="" disabled>Pilih Hero</option>
+						<option value="alucard">ALUCARD</option>
+						<option value="zilong">ZILONG</option>
+						<option value="kagura">KAGURA</option>
+						<option value="hanabi">HANABI</option>
+						<option value="cecilion">CECILION</option>
+						<option value="natalia">NATALIA</option>
+						<option value="atlas">ATLAS</option>
+						<option value="lorem">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Delectus provident
+							doloremque
+							iusto
+							cupiditate sint, at, dicta voluptates, distinctio adipisci nemo inventore. Praesentium ipsa nostrum
+							facilis
+							tenetur, sed reprehenderit id necessitatibus!</option>
+					</select>
+				</div>
+			</div>
+
+			<!--<label for="option">Pilih Lane:</label>
+			<select id="option" class="custom-select form-control w-100 mb-3" name="lane" ng-model="form.lane" required>
+				<option value="gold">GOLD</option>
+				<option value="mid">MID</option>
+				<option value="exp">EXP</option>
+				<option value="jungle">JUNGLE</option>
+				<option value="roam">ROAM</option>
+				<option value="lorem">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Delectus provident doloremque
+					iusto
+					cupiditate sint, at, dicta voluptates, distinctio adipisci nemo inventore. Praesentium ipsa nostrum facilis
+					tenetur, sed reprehenderit id necessitatibus!</option>
+			</select> -->
+
+			<button type="submit">Kirim</button>
+			<pre id="responseMessage" class="mt-5" ng-bind="print | json"></pre>
+		</div>
+	</form>
+
+	<script src="custom-select.js"></script>
+	<script>
+		const app = angular.module('myApp', [])
+		app.controller('select-custom', function ($rootScope, $scope) {
+			$scope.form = {
+				name: 'komputer1',
+				hero: '',
+				lane: 'gold'
+			}
+
+			$scope.submit = () => {
+				$scope.print = $scope.form
+
+				$scope.form = {
+					name: '',
+					hero: '',
+					lane: 'mid'
+				}
+			}
+		})
+	</script>
+</body>
+
+</html>
+<!-- <script>
+	document.getElementById("myForm").addEventListener("submit", function (e) {
+		e.preventDefault();
+
+		const formData = new FormData(this);
+		document.getElementById('responseMessage').innerText = JSON.stringify(Object.fromEntries(formData))
+		console.log(Object.fromEntries(formData));
+	});
+</script> -->
