@@ -134,6 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
 					}
 				} else if (e.key === "Escape") {
 					searchInput.value = '';
+					renderOptions('', optionContainer);
 					dropdownContainer.classList.remove("custom-select-active");
 				}
 			});
