@@ -82,6 +82,23 @@ document.addEventListener("DOMContentLoaded", function () {
 				textSelect.textContent = initialOption.innerText;
 			}
 
+			function adjustDropdownPosition(customSelect, dropdownContainer, dropdown) {
+				const rect = customSelect.getBoundingClientRect();
+				const dropdownHeight = dropdown.offsetHeight || 200; // default jika belum render sepenuhnya
+				const spaceBelow = window.innerHeight - rect.bottom;
+				const spaceAbove = rect.top;
+
+				if (spaceBelow < dropdownHeight && spaceAbove > dropdownHeight) {
+					dropdownContainer.classList.add("drop-up");
+					dropdown.style.top = "auto";
+					dropdown.style.bottom = `100%`;
+				} else {
+					dropdownContainer.classList.remove("drop-up");
+					dropdown.style.top = selectElementStyle.paddingTop;
+					dropdown.style.bottom = "auto";
+				}
+			}
+
 			const updateActiveOption = (direction) => {
 				const items = optionContainer.querySelectorAll(".custom-select-option-item:not(.disabled)");
 
@@ -142,6 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			customSelect.addEventListener("focus", () => {
 				document.querySelectorAll(".custom-select-dropdown-container").forEach(d => d.classList.remove("custom-select-active"));
 				dropdownContainer.classList.add("custom-select-active");
+				adjustDropdownPosition(customSelect, dropdownContainer, dropdown);
 				searchInput.focus();
 				selectedIndex = -1;
 			});
@@ -149,6 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			customSelect.addEventListener('click', (e) => {
 				document.querySelectorAll('.custom-select-dropdown-container').forEach(d => d.classList.remove('custom-select-active'));
 				dropdownContainer.classList.add('custom-select-active');
+				adjustDropdownPosition(customSelect, dropdownContainer, dropdown);
 				searchInput.focus()
 				selectedIndex = -1;
 				e.stopPropagation();

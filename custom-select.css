@@ -114,3 +114,8 @@
 	background-color: #007bff;
 	color: white;
 }
+
+.custom-select-dropdown-container.drop-up .custom-select-dropdown {
+	bottom: 100%;
+	top: auto;
+}
