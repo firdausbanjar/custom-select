@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	if (selectElements.length > 0) {
 		selectElements.forEach((selectElement) => {
-			const options = Array.from(selectElement.querySelectorAll("option"));
+			let options = Array.from(selectElement.querySelectorAll("option"));
 			selectElement.setAttribute('tabindex', '-1')
 
 			let search = "";
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 			function adjustDropdownPosition(customSelect, dropdownContainer, dropdown) {
 				const rect = customSelect.getBoundingClientRect();
-				const dropdownHeight = dropdown.offsetHeight || 200; // default jika belum render sepenuhnya
+				const dropdownHeight = dropdown.offsetHeight || 200;
 				const spaceBelow = window.innerHeight - rect.bottom;
 				const spaceAbove = rect.top;
 
@@ -128,6 +128,24 @@ document.addEventListener("DOMContentLoaded", function () {
 			});
 
 			observer.observe(selectElement, { attributes: true, childList: true, subtree: true });
+
+			const refreshOptions = () => {
+				options = Array.from(selectElement.querySelectorAll("option"));
+				renderOptions(searchInput.value, optionContainer);
+
+				const selectedOption = options.find(opt => opt.value === selectElement.value);
+				if (selectedOption) {
+					textSelect.textContent = selectedOption.innerText;
+				} else {
+					textSelect.textContent = options[0]?.innerText || "Pilih";
+				}
+			};
+
+			const optionObserver = new MutationObserver(() => {
+				refreshOptions();
+			});
+
+			optionObserver.observe(selectElement, { childList: true });
 
 			selectElement.addEventListener("change", () => {
 				const selectedOption = options.find(opt => opt.value === selectElement.value);
