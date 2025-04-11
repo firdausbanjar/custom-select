@@ -17,9 +17,19 @@ document.addEventListener("DOMContentLoaded", function () {
 				container.innerHTML = filteredOptions
 					.map((element, index) => {
 						const isDisabled = element.disabled ? "disabled" : "";
-						return `<span class="custom-select-option-item ${isDisabled}" data-value="${element.value}" ${isDisabled} data-index="${index}">${element.innerText}</span>`;
+						return `<span class="custom-select-option-item ${isDisabled}" data-value="${element.value}" ${getAttributesAsString(element)} data-index="${index}">${element.innerText}</span>`;
 					})
 					.join("");
+			};
+
+			const getAttributesAsString = (element) => {
+				let attrs = [];
+				for (let attr of element.attributes) {
+					if (attr.name !== 'class') { // biar gak dobel class-nya
+						attrs.push(`${attr.name}="${attr.value}"`);
+					}
+				}
+				return attrs.join(" ");
 			};
 
 			const customSelect = document.createElement("div");
@@ -37,11 +47,10 @@ document.addEventListener("DOMContentLoaded", function () {
 				<div class="custom-select-dropdown">
 					<input class="custom-select-search" type="text" placeholder="Cari..."/>
 					<div class="custom-select-option-container">
-							${options
-					.map((element, index) => {
-						const isDisabled = element.disabled ? "disabled" : "";
-						return `<span class="custom-select-option-item ${isDisabled}" data-value="${element.value}" ${isDisabled} data-index="${index}">${element.innerText}</span>`;
-					})
+							${options.map((element, index) => {
+				const isDisabled = element.disabled ? "disabled" : "";
+				return `<span class="custom-select-option-item ${isDisabled}" data-value="${element.value}" ${getAttributesAsString(element)} data-index="${index}">${element.innerText}</span>`;
+			})
 					.join("")}
 					</div>
 				</div>
@@ -68,12 +77,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 			optionContainer.setAttribute('tabindex', '-1')
 			textSelect.style.width = customSelectStyle.width
+			customSelect.style.height = customSelectStyle.height
 			dropdown.style.left = -(parseFloat(customSelectStyle.paddingLeft)) + "px";
 			dropdown.style.top = selectElementStyle.paddingTop;
 			dropdown.style.borderRadius = selectElementStyle.borderRadius;
 			dropdown.style.width = `calc(100% + ${totalPadding}px )`;
 			dropdown.style.border = customSelectStyle.border;
-
 			iconSelect.style.right = `calc(-${paddingLeft}px + 5px)`
 
 			const initialValue = selectElement.value;
@@ -103,7 +112,6 @@ document.addEventListener("DOMContentLoaded", function () {
 				const items = optionContainer.querySelectorAll(".custom-select-option-item:not(.disabled)");
 
 				if (items.length === 0) return;
-
 				if (direction === "down") {
 					selectedIndex = (selectedIndex + 1) % items.length;
 				} else if (direction === "up") {
